@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, UseGuards } from '@nestjs/common';
 import { OwnerService } from './owner.service';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { OwnerAuth, OwnerAuthParam } from 'src/auth/decorators/owner-auth.decorator';
