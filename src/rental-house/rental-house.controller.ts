@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { OwnerAuth, OwnerAuthParam } from 'src/auth/decorators/owner-auth.decorator';
 import { CreateRentalHouse } from './use-case/create-rental-house';
 import { CreateRentalHouseSystemInput } from './dto/create-rental-house-system-input';
@@ -28,6 +28,13 @@ export class RentalHouseController {
   }
 
   //認証つきでrentalHouseとそこに紐つくroom全件取得
+  @UseGuards(AuthGuard)
+  @Get(`/owner/:rental_house_id/rental-house-to-rooms`)
+  async findOneWithRooms(
+    @Param('rental_house_id') id: string
+  ) {
+    return this.rentalHouseService.findOneWithRooms(id);
+  }
 
 
   //rentalHouseの作成

@@ -12,4 +12,10 @@ export class PhotoService {
   ) {
     return this.prismaService.photo.create({ data: input })
   }
+
+  createWithMansionRoom(
+    input: { mansion_room_id: string, image: string }
+   ) {
+    return this.prismaService.photo.create({ data: input })
+  }
 }

@@ -2,12 +2,14 @@ import { Injectable } from "@nestjs/common";
 import { RentalHouseService } from "../rental-house.service";
 import { PhotoService } from "src/photo/photo.service";
 import { CreateRentalHouseSystemInput } from "../dto/create-rental-house-system-input";
+import { MansionService } from "src/mansion/mansion.service";
 
 @Injectable()
 export class CreateRentalHouse {
   constructor(
     private readonly rentalHouseService: RentalHouseService,
-    private readonly photoService: PhotoService
+    private readonly photoService: PhotoService,
+    private readonly mansionService: MansionService
   ) {}
 
   async handle(
@@ -22,13 +24,15 @@ export class CreateRentalHouse {
 
     //写真を生成する
     await Promise.all(
-      rental_house_photos.map(async (photo) => {
-        const systemPhoto = await this.photoService.createWithRentalHouse({ rental_house_id: rentalHouse.id, image: photo });
+      rental_house_photos.map(async (photo: string) => {
+        await this.photoService.createWithRentalHouse({ rental_house_id: rentalHouse.id, image: photo });
       }
     )).catch(async(error) => {
       //rentalHouseを削除する
       await this.rentalHouseService.delete(rentalHouse.id);
     })
 
+    //mansionの中間テーブル作成
+    const mansion = await this.mansionService.create(rentalHouse.id);
   }
 }

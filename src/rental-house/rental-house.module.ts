@@ -4,8 +4,8 @@ import { RentalHouseService } from './rental-house.service';
 import { PrismaService } from 'src/prisma.service';
 import { PhotoService } from 'src/photo/photo.service';
 import { CreateRentalHouse } from './use-case/create-rental-house';
-import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { OwnerService } from 'src/owner/owner.service';
+import { MansionService } from 'src/mansion/mansion.service';
 
 @Module({
   controllers: [RentalHouseController],
@@ -14,7 +14,8 @@ import { OwnerService } from 'src/owner/owner.service';
     PrismaService,
     PhotoService,
     CreateRentalHouse,
-    OwnerService
+    OwnerService,
+    MansionService
   ]
 })
 export class RentalHouseModule {}

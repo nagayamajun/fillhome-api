@@ -24,8 +24,28 @@ export class RentalHouseService {
             id: true,
             image : true
           }
-        }
+        },
+        mansion: true
       }
+    })
+  }
+
+  //リファクタ: ネストが深すぎるからuse-caseに切り分ける
+  findOneWithRooms(id: string) {
+    return this.prismaService.rentalHouse.findUnique({
+      where: { id },
+      include: {
+        rental_house_photos: true,
+        mansion: {
+          include: {
+            mansion_rooms: {
+              include: {
+                mansion_room_photos: true
+              }
+            }
+          }
+        }
+      },
     })
   }
 

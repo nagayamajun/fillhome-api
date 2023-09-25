@@ -17,62 +17,62 @@ enum StructureType {
 }
 
 model Photo {
-  id String @id @default(cuid())
-  image String
+  id              String       @id @default(cuid())
+  image           String
   //rentalHouseとの紐付け
   rental_house_id String?
-  rental_house RentalHouse? @relation(fields: [rental_house_id], references: [id])
+  rental_house    RentalHouse? @relation(fields: [rental_house_id], references: [id])
   //manshionRoomとの紐付け
   mansion_room_id String?
-  mansion_room MansionRoom? @relation(fields: [mansion_room_id], references: [id])
+  mansion_room    MansionRoom? @relation(fields: [mansion_room_id], references: [id])
 }
 
 model Owner {
-  id    String     @id @default(cuid())
-  firebase_uid  String @unique
-  email String     @unique 
-  first_name  String
-  last_name String
+  id           String @id @default(cuid())
+  firebase_uid String @unique
+  email        String @unique
+  first_name   String
+  last_name    String
   phone_number String
 
   rental_houses RentalHouse[]
 }
 
 model RentalHouse {
-  id String @id @default(cuid())
-  name String 
-  address String
-  nearest_station String
-  max_floor_number Int
-  building_age Int
-  structure_type Int 
-  rental_house_photos Photo[] 
-  mansions Mansion[]
-  owner_id String
-  owner Owner @relation(fields: [owner_id], references: [id])
+  id                  String   @id @default(cuid())
+  name                String
+  address             String
+  nearest_station     String
+  max_floor_number    Int
+  building_age        Int
+  structure_type      Int
+  rental_house_photos Photo[]
+  mansion             Mansion?
+  owner_id            String
+  owner               Owner    @relation(fields: [owner_id], references: [id])
 }
 
 //mansionとrentalhouseの中間テーブル
 model Mansion {
-  id String @id @default(cuid())
-  rental_house_id String
-  rental_houses RentalHouse @relation(fields: [rental_house_id], references: [id])
-  mansion_rooms MansionRoom[]
+  id              String        @id @default(cuid())
+  rental_house_id String        @unique
+  rental_house    RentalHouse   @relation(fields: [rental_house_id], references: [id])
+  mansion_rooms   MansionRoom[]
 }
 
 model MansionRoom {
-  id String @id @default(cuid())
-  name String? //ここはいらない気がする
-  layout String
-  thanks_money Int
-  security_deposit Int
-  floor_number Int
-  rent Int
-  maintenance_fee Int
-  contract_duration String // 契約期間
+  id                  String   @id @default(cuid())
+  layout              String
+  thanks_money        Int
+  security_deposit    Int
+  floor_number        Int
+  rent                Int
+  stay_fee            Int
+  maintenance_fee     Int
+  contract_duration   String // 契約期間
   mansion_room_photos Photo[]
-  availableDates String[]
-  reserve_url String?
-  mansion_id String
-  mansion Mansion @relation(fields: [mansion_id], references: [id])
+  availableDates      String[]
+  reserve_url         String?
+  mansion_id          String
+  mansion             Mansion  @relation(fields: [mansion_id], references: [id])
 }
