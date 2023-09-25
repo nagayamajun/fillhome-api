@@ -13,12 +13,10 @@ export class CreateRentalHouse {
   ) {}
 
   async handle(
-    input: any,
-    // input: CreateRentalHouseSystemInput,
+    input: CreateRentalHouseSystemInput,
     owner_id: string
   ): Promise<void> {
-    const { rental_house: {rental_house_photos, ...rest} } = input;
-    
+    const { rental_house_photos, ...rest } = input;
     //rental_houseを作成する
     const rentalHouse = await this.rentalHouseService.create({owner_id, ...rest});
 
