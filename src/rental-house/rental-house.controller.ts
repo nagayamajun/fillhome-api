@@ -4,7 +4,6 @@ import { CreateRentalHouse } from './use-case/create-rental-house';
 import { CreateRentalHouseSystemInput } from './dto/create-rental-house-system-input';
 import { RentalHouseService } from './rental-house.service';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
-import { Owner } from '@prisma/client';
 
 @Controller('rental-house')
 export class RentalHouseController {

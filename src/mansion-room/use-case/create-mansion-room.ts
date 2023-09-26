@@ -17,18 +17,16 @@ export class CreateMansionRoom{
   ) {
     const { mansion_room_photos, ...rest } = input;
 
-    // const mansionRoom = await this.mansionRoomService.create({ ...rest, mansion_id });
     const mansionRoom = await this.mansionRoomService.create(rest, mansion_id);
-
 
     //写真を生成する
     await Promise.all(
       mansion_room_photos.map(async (photo: string) => {
-        // await this.photoService.createWithRentalHouse({ rental_house_id: .id, image: photo });
         const url = await this.photoService.createWithMansionRoom({ mansion_room_id: mansionRoom.id, image: photo })
       })).catch(async(error) => {
       //rentalHouseを削除する
       await this.mansionRoomService.delete(mansionRoom.id);
-    })
+    });
+
   }
 }
