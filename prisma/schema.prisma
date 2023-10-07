@@ -1,0 +1,91 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum StructureType {
+  WOODEN_CONSTRUCTION //木造
+  STEEL_FRAME_AND_REINFORCED_STEEL_CONSTRUCTION //S造・鉄骨造
+  REINFORCED_CONCRETE_CONSTRUCTION //RC造・鉄筋コンクリート造
+}
+
+model Photo {
+  id              String       @id @default(cuid())
+  image           String
+  //rentalHouseとの紐付け
+  rental_house_id String?
+  rental_house    RentalHouse? @relation(fields: [rental_house_id], references: [id])
+  //manshionRoomとの紐付け
+  mansion_room_id String?
+  mansion_room    MansionRoom? @relation(fields: [mansion_room_id], references: [id])
+}
+
+model Owner {
+  id           String @id @default(cuid())
+  firebase_uid String @unique
+  email        String @unique
+  first_name   String
+  last_name    String
+  phone_number String
+
+  rental_houses RentalHouse[]
+}
+
+model RentalHouse {
+  id                  String   @id @default(cuid())
+  name                String
+  address             String
+  nearest_station     String
+  max_floor_number    Int
+  building_age        Int
+  structure_type      Int
+  rental_house_photos Photo[]
+  mansion             Mansion?
+  owner_id            String
+  owner               Owner    @relation(fields: [owner_id], references: [id])
+}
+
+//mansionとrentalhouseの中間テーブル
+model Mansion {
+  id              String        @id @default(cuid())
+  rental_house_id String        @unique
+  rental_house    RentalHouse   @relation(fields: [rental_house_id], references: [id])
+  mansion_rooms   MansionRoom[]
+}
+
+model MansionRoom {
+  id                  String   @id @default(cuid())
+  layout              String
+  thanks_money        Int
+  security_deposit    Int
+  floor_number        Int
+  rent                Int
+  stay_fee            Int
+  maintenance_fee     Int
+  contract_duration   String // 契約期間
+  mansion_room_photos Photo[]
+  available_dates     String[] //一日テーブル[]
+  reserve_url         String?
+  mansion_id          String
+  mansion             Mansion  @relation(fields: [mansion_id], references: [id])
+  reservations        Reservation[]
+}
+
+model Reservation {
+  id String @id @default(cuid())
+  last_name String
+  first_name String
+  phone_number String
+  email String
+  address String
+  stay_date String
+  mansion_room_id String
+  mansion_room MansionRoom @relation(fields: [mansion_room_id], references: [id])
+}
