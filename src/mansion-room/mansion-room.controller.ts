@@ -5,6 +5,7 @@ import { CreateMansionRoom } from 'src/mansion-room/use-case/create-mansion-room
 import { OwnerAuth, OwnerAuthParam } from 'src/auth/decorators/owner-auth.decorator';
 import { CreateMansionRoomSystemInput } from './dto/create-mansion-room-system-input';
 import { FindRoomWithRentalHouse } from './use-case/find-room-with-rental-house';
+import { MansionRoomEntity } from './entities/mansion-room.entity';
 
 @Controller('mansion-room')
 export class MansionRoomController {
@@ -13,6 +14,14 @@ export class MansionRoomController {
     private readonly createMansionRoom: CreateMansionRoom,
     private readonly findRoomWithRentalHouse: FindRoomWithRentalHouse
   ) {}
+
+  @Get('/:id')
+  async findOne(
+    @Param('id') id: string
+    ): Promise<MansionRoomEntity> {
+    const data = await this.mansionRoomService.findOneWithPhoto(id);
+    return data
+  }
 
   //roomとその親に当たるrental_houseを取得する。
   @Get('/rental-house/:rental_house_id/room/:id')
@@ -25,7 +34,6 @@ export class MansionRoomController {
       room_id: id
     });
   }
-
 
   @UseGuards(AuthGuard)
   @Post('/create/:mansion_id')

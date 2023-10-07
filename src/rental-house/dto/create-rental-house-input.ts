@@ -16,14 +16,14 @@ export class CreateRentalHouseInput {
 
   @IsNotEmpty({ message: '何階建は必須項目です。' })
   @IsNumber()
-  max_floor_number: string;
+  max_floor_number: number;
 
   @IsNotEmpty({ message: '築年数は必須です。' })
   @IsNumber()
-  building_age: string;
+  building_age: number ;
 
   @IsNotEmpty({ message: '建物の種類は必須項目です。' })
-  structure_type: any;
+  structure_type: number;
   
 }
 

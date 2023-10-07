@@ -41,8 +41,7 @@ export class RentalHouseController {
   @Post('create')
   async create(
     @OwnerAuth() { owner }: OwnerAuthParam,
-    @Body() input: any
-    // @Body() input: CreateRentalHouseSystemInput
+    @Body() input: CreateRentalHouseSystemInput
   ): Promise<void> {
     return this.createRentalHouse.handle(input, owner.id)
   }

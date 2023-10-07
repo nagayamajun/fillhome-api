@@ -83,9 +83,7 @@ export class RentalHouseService {
   }
 
   create(
-    // input: CreateRentalHouseInput & { owner_id: string }
-    // owner_id: string,
-    input: any //型後で作る
+    input: CreateRentalHouseInput & { owner_id: string }
   ): PrismaPromise<RentalHouse> {
     return this.prismaService.rentalHouse.create({ data: input })
   };

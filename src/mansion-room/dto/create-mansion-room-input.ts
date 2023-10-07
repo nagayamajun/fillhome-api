@@ -20,27 +20,27 @@ export class CreateMansionRoomInput {
 
   @IsNotEmpty({ message: REQUIRE_FIELD })
   @IsNumber()
-  security_deposit: string;
+  security_deposit: number;
 
   @IsNotEmpty({ message: REQUIRE_FIELD })
   @IsNumber()
-  floor_number: string;
+  floor_number: number;
 
   @IsNotEmpty({ message: REQUIRE_FIELD })
   @IsNumber()
-  rent: string;
+  rent: number;
 
   @IsNotEmpty({ message: REQUIRE_FIELD })
   @IsNumber()
-  stay_fee: string;
+  stay_fee: number;
 
   @IsNotEmpty({ message: REQUIRE_FIELD })
   @IsNumber()
-  maintenance_fee: string;  
+  maintenance_fee: number;  
 
   @IsOptional()
   @IsString()
-  availableDates: string[];
+  available_dates: string[];
 
   // @IsOptional()
   // @IsString()

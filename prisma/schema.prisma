@@ -71,8 +71,21 @@ model MansionRoom {
   maintenance_fee     Int
   contract_duration   String // 契約期間
   mansion_room_photos Photo[]
-  availableDates      String[]
+  available_dates     String[] //一日テーブル[]
   reserve_url         String?
   mansion_id          String
   mansion             Mansion  @relation(fields: [mansion_id], references: [id])
+  reservations        Reservation[]
+}
+
+model Reservation {
+  id String @id @default(cuid())
+  last_name String
+  first_name String
+  phone_number String
+  email String
+  address String
+  stay_date String
+  mansion_room_id String
+  mansion_room MansionRoom @relation(fields: [mansion_room_id], references: [id])
 }

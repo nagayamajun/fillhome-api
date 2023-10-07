@@ -15,7 +15,7 @@ export class FindRoomWithRentalHouse {
     //rental-house取得
     const rentalHouse = await this.rentalHouseService.findOne(rental_house_id);
     //room取得
-    const mansionRoom = await this.mansionRoomService.findOne(room_id);
+    const mansionRoom = await this.mansionRoomService.findOneWithPhoto(room_id);
 
     return {
       mansion_room: mansionRoom,

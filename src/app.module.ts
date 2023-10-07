@@ -8,9 +8,10 @@ import { RentalHouseModule } from './rental-house/rental-house.module';
 import { PhotoModule } from './photo/photo.module';
 import { MansionModule } from './mansion/mansion.module';
 import { MansionRoomModule } from './mansion-room/mansion-room.module';
+import { ReservationModule } from './reservation/reservation.module';
 
 @Module({
-  imports: [OwnerModule, AuthModule, RentalHouseModule, PhotoModule, MansionModule, MansionRoomModule],
+  imports: [OwnerModule, AuthModule, RentalHouseModule, PhotoModule, MansionModule, MansionRoomModule, ReservationModule],
   controllers: [AppController],
   providers: [AppService, PrismaService],
 })

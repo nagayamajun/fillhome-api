@@ -12,6 +12,14 @@ export class MansionRoomService {
 
   findOne(
     id: string
+  ) {
+    return this.prismaService.mansionRoom.findUnique({
+      where: { id }
+    })
+  }
+
+  findOneWithPhoto(
+    id: string
   ): PrismaPromise<MansionRoomWithPhotoEntity> {
     return this.prismaService.mansionRoom.findUnique({
       where: { id },
@@ -27,10 +35,20 @@ export class MansionRoomService {
   }
 
   create(
-    input: any, //ここをCreateMansionRoomInputで指定するとエラーが出る
+    input: CreateMansionRoomInput,
     mansion_id: string
   ) {
-    return this.prismaService.mansionRoom.create({data: {...input, mansion_id}})
+    const newInput = {...input, mansion_id}
+    return this.prismaService.mansionRoom.create({data: newInput})
+  }
+
+  systemUpdate(
+    {id, available_dates}: {id: string, available_dates: string[]}
+  ) {
+    return this.prismaService.mansionRoom.update({
+      where: { id },
+      data: { available_dates }
+    })
   }
 
   delete(id: string) {
