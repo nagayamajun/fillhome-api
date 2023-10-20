@@ -44,7 +44,7 @@ export class RentalHouseService {
             image : true
           }
         },
-        mansion: true
+
       }
     })
   }
@@ -77,18 +77,20 @@ export class RentalHouseService {
             id: true,
             image: true
           }
-        }
+        },
+        mansion: true
       }
     })
   }
 
   create(
-    input: CreateRentalHouseInput & { owner_id: string }
+    {input, owner_id}: {input: CreateRentalHouseInput, owner_id: string} 
   ): PrismaPromise<RentalHouse> {
-    return this.prismaService.rentalHouse.create({ data: input })
+    return this.prismaService.rentalHouse.create({ data: {...input, owner_id} })
   };
 
   delete(id: string) {
     return this.prismaService.rentalHouse.delete({ where: { id } })
   }
 }
+

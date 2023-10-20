@@ -42,7 +42,7 @@ export class RentalHouseController {
   async create(
     @OwnerAuth() { owner }: OwnerAuthParam,
     @Body() input: CreateRentalHouseSystemInput
-  ): Promise<void> {
+  ): Promise<{id: string}> {
     return this.createRentalHouse.handle(input, owner.id)
   }
 }

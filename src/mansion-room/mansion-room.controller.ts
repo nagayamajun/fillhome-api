@@ -2,7 +2,6 @@ import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { MansionRoomService } from './mansion-room.service';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { CreateMansionRoom } from 'src/mansion-room/use-case/create-mansion-room';
-import { OwnerAuth, OwnerAuthParam } from 'src/auth/decorators/owner-auth.decorator';
 import { CreateMansionRoomSystemInput } from './dto/create-mansion-room-system-input';
 import { FindRoomWithRentalHouse } from './use-case/find-room-with-rental-house';
 import { MansionRoomEntity } from './entities/mansion-room.entity';
@@ -40,7 +39,7 @@ export class MansionRoomController {
   async create(
     @Param('mansion_id') mansion_id: string,
     @Body() input: CreateMansionRoomSystemInput
-  ) {
+  ): Promise<{id: string}> {
     return await this.createMansionRoom.handle({input, mansion_id});
   }
 

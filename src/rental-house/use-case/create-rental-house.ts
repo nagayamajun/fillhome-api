@@ -15,10 +15,10 @@ export class CreateRentalHouse {
   async handle(
     input: CreateRentalHouseSystemInput,
     owner_id: string
-  ): Promise<void> {
+  ): Promise<{ id: string }> {
     const { rental_house_photos, ...rest } = input;
     //rental_houseを作成する
-    const rentalHouse = await this.rentalHouseService.create({owner_id, ...rest});
+    const rentalHouse = await this.rentalHouseService.create({input: {...rest}, owner_id});
 
     //写真を生成する
     await Promise.all(
@@ -32,5 +32,9 @@ export class CreateRentalHouse {
 
     //mansionの中間テーブル作成
     const mansion = await this.mansionService.create(rentalHouse.id);
+
+    return {
+      id: rentalHouse.id
+    }
   }
 }

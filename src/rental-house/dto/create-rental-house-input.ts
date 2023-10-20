@@ -26,7 +26,3 @@ export class CreateRentalHouseInput {
   structure_type: number;
   
 }
-
-// @IsNotEmpty({ message: ''})
-// @IsString()
-// rental_house_photos: string[]

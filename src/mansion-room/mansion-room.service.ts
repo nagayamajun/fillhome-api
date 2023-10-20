@@ -38,8 +38,7 @@ export class MansionRoomService {
     input: CreateMansionRoomInput,
     mansion_id: string
   ) {
-    const newInput = {...input, mansion_id}
-    return this.prismaService.mansionRoom.create({data: newInput})
+    return this.prismaService.mansionRoom.create({data: {...input, mansion_id}})
   }
 
   systemUpdate(

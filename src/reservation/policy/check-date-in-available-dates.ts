@@ -1,6 +1,5 @@
 import { BadRequestException, Injectable } from "@nestjs/common";
 import { NOT_FOUND_DATE_IN_AVAILABLE_DATES } from "src/common/message";
-import { MansionRoomService } from "src/mansion-room/mansion-room.service";
 
 @Injectable()
 export class CheckDateInAvailableDates {

@@ -8,5 +8,4 @@ export class RentalHouseEntity {
   building_age: number
   structure_type: number
   owner_id: string
-  // rental_house_photos Photo[]
 }
