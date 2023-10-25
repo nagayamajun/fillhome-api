@@ -9,9 +9,12 @@ import { PhotoModule } from './photo/photo.module';
 import { MansionModule } from './mansion/mansion.module';
 import { MansionRoomModule } from './mansion-room/mansion-room.module';
 import { ReservationModule } from './reservation/reservation.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [OwnerModule, AuthModule, RentalHouseModule, PhotoModule, MansionModule, MansionRoomModule, ReservationModule],
+  imports: [ConfigModule.forRoot({
+    envFilePath: ['.env'],
+  }), OwnerModule, AuthModule, RentalHouseModule, PhotoModule, MansionModule, MansionRoomModule, ReservationModule],
   controllers: [AppController],
   providers: [AppService, PrismaService],
 })
