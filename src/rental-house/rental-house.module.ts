@@ -6,6 +6,8 @@ import { PhotoService } from 'src/photo/photo.service';
 import { CreateRentalHouse } from './use-case/create-rental-house';
 import { OwnerService } from 'src/owner/owner.service';
 import { MansionService } from 'src/mansion/mansion.service';
+import { SearchRentalHouseUseCase } from './use-case/search-rental-house';
+import { EditRentalHouseUseCase } from './use-case/edit-rental-house-use-case';
 
 @Module({
   controllers: [RentalHouseController],
@@ -15,7 +17,9 @@ import { MansionService } from 'src/mansion/mansion.service';
     PhotoService,
     CreateRentalHouse,
     OwnerService,
-    MansionService
+    MansionService,
+    SearchRentalHouseUseCase,
+    EditRentalHouseUseCase
   ]
 })
 export class RentalHouseModule {}
